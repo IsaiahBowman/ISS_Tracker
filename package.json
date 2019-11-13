@@ -1,0 +1,14 @@
+{
+  "name": "astronomy100",
+  "version": "1.0.0",
+  "description": "Personal project for astronomy 100 ISS tracker",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Isaiah Bowman",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
