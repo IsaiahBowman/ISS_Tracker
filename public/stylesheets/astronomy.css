@@ -1,0 +1,24 @@
+ /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+ #map {
+     height: 20vw;
+     width: 70%;
+     margin: 0 auto;
+     border: 2px solid green;
+ }
+
+ /* Optional: Makes the sample page fill the window. */
+ html,
+ body {
+     height: 100%;
+     margin: 0;
+     padding: 0;
+ }
+
+ .your-location p,
+ .iss-location p {
+     display: inline-block;
+     position: relative;
+     width: auto;
+     margin: 0;
+ }
