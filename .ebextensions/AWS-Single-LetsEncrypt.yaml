@@ -67,7 +67,7 @@ container_commands:
   10_installcertbot:
     command: "wget https://dl.eff.org/certbot-auto;chmod a+x certbot-auto"
   20_getcert:
-    command: "sudo ./certbot-auto certonly --debug --non-interactive --email ibowman@purdue.edu --agree-tos --standalone --domains ${certdomain} --keep-until-expiring --pre-hook \"initctl stop nginx\" --post-hook \"initctl start nginx\" "
+    command: "sudo ./certbot-auto certonly --debug --non-interactive --email ibowman@purdue.edu --agree-tos --standalone --domains ${certdomain} --keep-until-expiring --pre-hook \"initctl stop nginx\" --post-hook \"initctl start nginx\" --staging"
   30_link:
     command: "ln -sf /etc/letsencrypt/live/${certdomain} /etc/letsencrypt/live/ebcert"
   40_config:
