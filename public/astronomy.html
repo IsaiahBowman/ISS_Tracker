@@ -1,38 +1,52 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Google Maps ISS testing</title>
 
-    <link rel='stylesheet' href='/stylesheets/astronomy.css' />
+<head>
+  <meta charset="utf-8">
+  <title>Google Maps ISS testing</title>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel='stylesheet' href='/stylesheets/astronomy.css' />
 
-  </head>
-  <body>
-    <div id="map"></div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+  <div id="ISS-tracker-wrapper">
     <div id="InfoPane">
-        <div class="your-location">
-            Your Location:<br>
-            <div class="lat-label">Latitude: <p class="your-lat"></p></div>
-            <div class="lng-label">Longitude: <p class="your-lng"></p></div>
+      <div class="your-location">
+        <b>Your Location:</b><br>
+        <div class="lat-label">Latitude: <p class="your-lat"></p>
+        </div>
+        <div class="lng-label">Longitude: <p class="your-lng"></p>
+        </div>
+      </div>
+      <br>
+      <div class="iss-location">
+        <b>ISS Location:</b><br>
+        <div class="lat-label">Latitude: <p class="iss-lat"></p>
+        </div>
+        <div class="lng-label">Longitude: <p class="iss-lng"></p>
         </div>
         <br>
-        <div class="iss-location">
-            ISS Location:<br>
-            <div class="lat-label">Latitude: <p class="iss-lat"></p></div>
-            <div class="lng-label">Longitude: <p class="iss-lng"></p></div>
-            <br>
-            Location Details:<br>
-            <div class="country-label">Country: <p></p></div>
-            <div class="area_1-label">State/Region: <p></p></div>
-            <div class="area_2-label">City: <p></p></div>
-            <div class="establishment-label">Ocean/Establishment: <p></p></div>
+        <b>Location Details:</b><br>
+        <div class="country-label">Country: <p></p>
         </div>
+        <div class="area_1-label">State/Region: <p></p>
+        </div>
+        <div class="area_2-label">City: <p></p>
+        </div>
+        <div class="establishment-label">Ocean/Establishment: <p></p>
+        </div>
+      </div>
     </div>
+    <div id="map"></div>
+  </div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDH_crf80-s8-jMeVEzRCLcUNJysmyhzvU&callback=initMap"
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDH_crf80-s8-jMeVEzRCLcUNJysmyhzvU&callback=initMap"
     async defer></script>
-    <script src="/scripts/iss-tracker.js"></script>
-  </body>
+  <script src="/scripts/iss-tracker.js"></script>
+</body>
+
 </html>

@@ -42,10 +42,7 @@ function initMap() {
 
         $('.your-location .your-lat').text(pos.lat);
         $('.your-location .your-lng').text(pos.lng);
-        // infoWindow.setPosition(pos);
-        // infoWindow.setContent('Location found.');
-        // infoWindow.open(map);
-        // map.setCenter(pos);
+
         $.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=${geolocationKey}`, function (data) {
             console.log(data);
         });

@@ -1,10 +1,27 @@
+ #ISS-tracker-wrapper {
+     display: table;
+     table-layout: fixed;
+     margin: 1vw;
+ }
+
  /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
- #map {
+ #map,
+ #InfoPane {
+     display: table-cell;
+     position: relative;
      height: 20vw;
-     width: 70%;
      margin: 0 auto;
+     padding: 1vw;
+ }
+
+ #map {
+     width: 50%;
      border: 2px solid green;
+ }
+
+ #InfoPane {
+     width: 15%;
  }
 
  /* Optional: Makes the sample page fill the window. */
@@ -21,4 +38,10 @@
      position: relative;
      width: auto;
      margin: 0;
+ }
+
+ /* info pane styling */
+
+ #InfoPane > div > div {
+     margin: .1vw;
  }
