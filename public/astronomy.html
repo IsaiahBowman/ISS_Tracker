@@ -22,6 +22,12 @@
             ISS Location:<br>
             <div class="lat-label">Latitude: <p class="iss-lat"></p></div>
             <div class="lng-label">Longitude: <p class="iss-lng"></p></div>
+            <br>
+            Location Details:<br>
+            <div class="country-label">Country: <p></p></div>
+            <div class="area_1-label">State/Region: <p></p></div>
+            <div class="area_2-label">City: <p></p></div>
+            <div class="establishment-label">Ocean/Establishment: <p></p></div>
         </div>
     </div>
 
@@ -66,8 +72,7 @@
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
-            console.log(pos);
-            console.log(map)
+
             $('.your-location .your-lat').text(pos.lat);
             $('.your-location .your-lng').text(pos.lng);
             // infoWindow.setPosition(pos);
@@ -106,7 +111,7 @@
             });
             }
 
-            updateInfoPane(currentPosition);
+            
 
             issPath.push(currentPosition);
 
@@ -119,9 +124,13 @@
               strokeWeight: 2
             });
 
-            
-
             pathTrack.setMap(map);
+
+            $.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${currentPosition.lat},${currentPosition.lng}&key=${geolocationKey}`, function(data) {
+                // setLocationName(parseLocationObj(data));
+                updateInfoPane(currentPosition, parseLocationObj(data));
+            });
+           
             // pathTrack.setPath(issPath);
           });
           getData.fail(function(err) {
@@ -129,9 +138,58 @@
           });
       }
 
-      function updateInfoPane(location) {
+      function setLocationName(pLocObj) {
+        // console.log(pLocObj);
+        // $.each(pLocObj, function(i, item) {
+        //   console.log(i);
+        //   console.log(item);
+        //   console.log('');
+        // });
+      }
+
+      function parseLocationObj(locObj) {
+        var newLocObj = {
+          country: 'N/A',
+          administrative_area_level_1: 'N/A',
+          administrative_area_level_2: 'N/A',
+          establishment: 'N/A'
+        };
+        if(locObj.status === "ZERO_RESULTS") {
+          newLoc = {
+            location: 'No associated location. Middle of nowhere.'
+          };
+          return newLocObj;
+        }
+
+        $.each(locObj.results[0].address_components, function(i, item) {
+          switch(item.types[0]) {
+            case 'establishment': 
+              newLocObj.establishment = item.long_name;
+              break;
+            case 'country': 
+              newLocObj.country = item.long_name;
+              break;
+            case 'administrative_area_level_1': 
+              newLocObj.administrative_area_level_1 = item.long_name;
+              break;
+            case 'administrative_area_level_2': 
+              newLocObj.administrative_area_level_2 = item.long_name;
+              break;
+          }
+        });
+        
+        return newLocObj;
+      }
+
+      function updateInfoPane(location, locationDetails) {
         $('.iss-location .iss-lat').text(location.lat);
         $('.iss-location .iss-lng').text(location.lng);
+
+        console.log(locationDetails);
+        $('.iss-location .establishment-label > p').text(locationDetails.establishment);
+        $('.iss-location .country-label > p').text(locationDetails.country);
+        $('.iss-location .area_1-label > p').text(locationDetails.administrative_area_level_1);
+        $('.iss-location .area_2-label > p').text(locationDetails.administrative_area_level_2);
       }
 
       function getIssData() {
