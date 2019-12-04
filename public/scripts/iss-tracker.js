@@ -45,7 +45,6 @@ function initMap() {
         $('.your-location .your-lng').text(pos.lng);
 
         $.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=${geolocationKey}`, function (data) {
-            console.log(data);
             userLat = pos.lat;
             userLng = pos.lng;
         });
@@ -82,7 +81,8 @@ function setISS(marker) {
               R = 6371; // gives d in metres
             var d = Math.acos(Math.sin(φ1) * Math.sin(φ2) + Math.cos(φ1) * Math.cos(φ2) * Math.cos(Δλ)) * R;
             console.log(d);
-            $('.distance-value').text(d);
+            $('.distance-value-m').text(d);
+            $('.distance-value-mi').text(d * 0.000621);
           }
   
 
