@@ -1,4 +1,5 @@
 var map;
+var marker;
 var geolocationKey = "AIzaSyDH_crf80-s8-jMeVEzRCLcUNJysmyhzvU";
 var geoCodeKey = "AIzaSyDH_crf80-s8-jMeVEzRCLcUNJysmyhzvU";
 
@@ -24,7 +25,7 @@ function initMap() {
         anchor: new google.maps.Point(25, 25) // anchor
     };
 
-    var marker = new google.maps.Marker({
+    marker = new google.maps.Marker({
         icon: icon,
         map: map,
         position: new google.maps.LatLng(-34.397, 150.644)
@@ -32,20 +33,28 @@ function initMap() {
 }
 
 function initTracker() {
-    if(!map) initMap();
     setUserLocation();
     ta = setInterval(updateTracker, 5000);
 }
 
-
 function setUserLocation() {
     if (navigator.geolocation) {
-        console.log('Geolocation is supported!');
-        $.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${currLat},${currLng}&key=${geolocationKey}`, function (data) {
-                console.log(data);
+        navigator.geolocation.getCurrentPosition(function (position) {
+            var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+    
+            $('.your-location .your-lat').text(pos.lat);
+            $('.your-location .your-lng').text(pos.lng);
+    
+            $.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=${geolocationKey}`, function (data) {
+                userLat = pos.lat;
+                userLng = pos.lng;
                 userLocation = true;
             });
-        userLocation = true;
+        });
+        console.log('Geolocation is supported!');
       }
       else {
         console.log('Geolocation is not supported for this Browser/OS.');
