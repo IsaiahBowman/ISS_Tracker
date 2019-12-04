@@ -139,7 +139,7 @@ function updateInfoPane(location, locationDetails) {
     $('.iss-location .establishment-label > p').text(locationDetails.establishment);
     $('.iss-location .country-label > p').text(locationDetails.country);
     $('.iss-location .area_1-label > p').text(locationDetails.administrative_area_level_1);
-    $('.iss-location .area_2-label > p').text(locationDetails.administrative_area_level_2);
+    $('.iss-location .area_2-label > p').text(locationDetails.administrative_area_level_2); 
 }
 
 function getIssData() {
