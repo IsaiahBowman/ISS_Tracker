@@ -6,6 +6,7 @@ var issPath = [];
 var userLocation = false;
 var userLat, userLng;
 var pathTrack;
+var ta = -1;
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -28,31 +29,30 @@ function initMap() {
         map: map,
         position: new google.maps.LatLng(-34.397, 150.644)
     });
-    
-
-    setISS(marker);
-    var startTrack = setInterval(function () {
-        setISS(marker);
-    }, 3000);
-
-    navigator.geolocation.getCurrentPosition(function (position) {
-        var pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-        };
-
-        $('.your-location .your-lat').text(pos.lat);
-        $('.your-location .your-lng').text(pos.lng);
-
-        $.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=${geolocationKey}`, function (data) {
-            userLat = pos.lat;
-            userLng = pos.lng;
-        });
-    });
-
 }
 
-function setISS(marker) {
+function initTracker() {
+    if(!map) initMap();
+    setUserLocation();
+    ta = setInterval(updateTracker, 5000);
+}
+
+
+function setUserLocation() {
+    if (navigator.geolocation) {
+        console.log('Geolocation is supported!');
+        $.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${currLat},${currLng}&key=${geolocationKey}`, function (data) {
+                console.log(data);
+                userLocation = true;
+            });
+        userLocation = true;
+      }
+      else {
+        console.log('Geolocation is not supported for this Browser/OS.');
+      }            
+}
+
+function updateTracker(marker) {
     var getData = getIssData();
     getData.done(function (data, status, xhr) {
 
@@ -67,26 +67,15 @@ function setISS(marker) {
 
         marker.setPosition(new google.maps.LatLng(currLat, currLng));
 
-        if (!userLocation) {
-            console.log(map.data);
-            $.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${currLat},${currLng}&key=${geolocationKey}`, function (data) {
-                console.log(data);
-                userLocation = true;
-            });
-        }
-        else {
+        if (userLocation) {
             var φ1 = toRadians(userLat),
-              φ2 = toRadians(currLat),
-              Δλ = toRadians(currLng - userLng),
-              R = 6371; // gives d in metres
-            var d = Math.acos(Math.sin(φ1) * Math.sin(φ2) + Math.cos(φ1) * Math.cos(φ2) * Math.cos(Δλ)) * R;
-            console.log(d);
-            $('.distance-value-m').text(d);
-            $('.distance-value-mi').text(d * 0.000621);
-          }
-  
-
-
+            φ2 = toRadians(currLat),
+            Δλ = toRadians(currLng - userLng),
+            R = 6371; // gives d in metres
+          var d = Math.acos(Math.sin(φ1) * Math.sin(φ2) + Math.cos(φ1) * Math.cos(φ2) * Math.cos(Δλ)) * R;
+          $('.distance-value-m').text(d);
+          $('.distance-value-mi').text(d * 0.000621);
+        } 
 
         issPath.push(currentPosition);
 
