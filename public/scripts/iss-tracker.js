@@ -34,6 +34,7 @@ function initMap() {
 
 function initTracker() {
     setUserLocation();
+    updateTracker();
     ta = setInterval(updateTracker, 5000);
 }
 
@@ -61,7 +62,7 @@ function setUserLocation() {
       }            
 }
 
-function updateTracker(marker) {
+function updateTracker() {
     var getData = getIssData();
     getData.done(function (data, status, xhr) {
 
