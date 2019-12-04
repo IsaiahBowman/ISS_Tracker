@@ -4,6 +4,7 @@ var geoCodeKey = "AIzaSyDH_crf80-s8-jMeVEzRCLcUNJysmyhzvU";
 
 var issPath = [];
 var userLocation = false;
+var userLat, userLng;
 var pathTrack;
 
 function initMap() {
@@ -45,6 +46,8 @@ function initMap() {
 
         $.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=${geolocationKey}`, function (data) {
             console.log(data);
+            userLat = pos.lat;
+            userLng = pos.lng;
         });
     });
 
@@ -72,6 +75,16 @@ function setISS(marker) {
                 userLocation = true;
             });
         }
+        else {
+            var φ1 = toRadians(userLat),
+              φ2 = toRadians(currLat),
+              Δλ = toRadians(currLng - userLng),
+              R = 6371; // gives d in metres
+            var d = Math.acos(Math.sin(φ1) * Math.sin(φ2) + Math.cos(φ1) * Math.cos(φ2) * Math.cos(Δλ)) * R;
+            console.log(d);
+            $('.distance-value').text(d);
+          }
+  
 
 
 
@@ -96,6 +109,11 @@ function setISS(marker) {
     getData.fail(function (err) {
         console.log(err);
     });
+}
+
+function toRadians(degrees) {
+    var pi = Math.PI;
+    return degrees * (pi/180);
 }
 
 function parseLocationObj(locObj) {
