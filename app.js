@@ -15,7 +15,7 @@ app.get('/astronomy-open-notify-json', function(req, res) {
 
   request('http://api.open-notify.org/iss-now.json', function (error, response, body) {
     res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(body));
+    res.end(body);
   });
 
 });
