@@ -3,12 +3,23 @@ var port = process.env.PORT || 3000;
 var app = express(),
 path = require('path'),
 publicDir = path.join(__dirname,'public');
+var request = require('request');
 
 app.use(express.static(publicDir))
 
 app.get('/astronomy', function(req, res) {
   res.sendFile(publicDir + '/astronomy.html');
 });
+
+app.get('/astronomy-open-notify-json', function(req, res) {
+
+  request('http://api.open-notify.org/iss-now.json', function (error, response, body) {
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(body));
+  });
+
+});
+
 
 module.exports = app;
 
