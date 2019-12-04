@@ -161,5 +161,5 @@ function updateInfoPane(location, locationDetails) {
 }
 
 function getIssData() {
-    return $.ajax('http://api.open-notify.org/iss-now.json');
+    return $.ajax('https://ilbowman.com/astronomy-open-notify-json');
 }
