@@ -1,5 +1,5 @@
-var map;
-var marker;
+var map = null;
+var issmarker;
 var geolocationKey = "AIzaSyDH_crf80-s8-jMeVEzRCLcUNJysmyhzvU";
 var geoCodeKey = "AIzaSyDH_crf80-s8-jMeVEzRCLcUNJysmyhzvU";
 
@@ -25,7 +25,7 @@ function initMap() {
         anchor: new google.maps.Point(25, 25) // anchor
     };
 
-    marker = new google.maps.Marker({
+    issmarker = new google.maps.Marker({
         icon: icon,
         map: map,
         position: new google.maps.LatLng(-34.397, 150.644)
@@ -33,6 +33,7 @@ function initMap() {
 }
 
 function initTracker() {
+    if(!map) initMap();
     setUserLocation();
     updateTracker();
     ta = setInterval(updateTracker, 5000);
@@ -45,10 +46,10 @@ function setUserLocation() {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-    
+
             $('.your-location .your-lat').text(pos.lat);
             $('.your-location .your-lng').text(pos.lng);
-    
+
             $.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=${geolocationKey}`, function (data) {
                 userLat = pos.lat;
                 userLng = pos.lng;
@@ -59,7 +60,7 @@ function setUserLocation() {
       }
       else {
         console.log('Geolocation is not supported for this Browser/OS.');
-      }            
+      }
 }
 
 function updateTracker() {
@@ -70,12 +71,9 @@ function updateTracker() {
             currLng = data.iss_position.longitude;
 
         var center = new google.maps.LatLng(currLat, currLng);
-        var currentPosition = {
-            lat: parseFloat(currLat),
-            lng: parseFloat(currLng)
-        };
 
-        marker.setPosition(new google.maps.LatLng(currLat, currLng));
+
+        issmarker.setPosition(new google.maps.LatLng(currLat, currLng));
 
         if (userLocation) {
             var φ1 = toRadians(userLat),
@@ -85,8 +83,12 @@ function updateTracker() {
           var d = Math.acos(Math.sin(φ1) * Math.sin(φ2) + Math.cos(φ1) * Math.cos(φ2) * Math.cos(Δλ)) * R;
           $('.distance-value-m').text(d);
           $('.distance-value-mi').text(d * 0.000621);
-        } 
+        }
 
+        var currentPosition = {
+            lat: parseFloat(currLat),
+            lng: parseFloat(currLng)
+        };
         issPath.push(currentPosition);
 
         map.panTo(center);
@@ -156,7 +158,7 @@ function updateInfoPane(location, locationDetails) {
     $('.iss-location .establishment-label > p').text(locationDetails.establishment);
     $('.iss-location .country-label > p').text(locationDetails.country);
     $('.iss-location .area_1-label > p').text(locationDetails.administrative_area_level_1);
-    $('.iss-location .area_2-label > p').text(locationDetails.administrative_area_level_2); 
+    $('.iss-location .area_2-label > p').text(locationDetails.administrative_area_level_2);
 }
 
 function getIssData() {
