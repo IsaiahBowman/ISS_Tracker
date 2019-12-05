@@ -8,10 +8,11 @@
   <link rel='stylesheet' href='/stylesheets/astronomy.css' />
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDH_crf80-s8-jMeVEzRCLcUNJysmyhzvU" defer></script>
+  <script src="./iss-tracker.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDH_crf80-s8-jMeVEzRCLcUNJysmyhzvU&callback=initTracker" defer async></script>
 </head>
 
-<body onload="initTracker();">
+<body>
   <div id="ISS-tracker-wrapper">
     <div id="InfoPane">
       <div class="your-location">
@@ -48,8 +49,6 @@
     </div>
     <div id="map"></div>
   </div>
-
-  <script src="/scripts/iss-tracker.js"></script>
 </body>
 
 </html>
