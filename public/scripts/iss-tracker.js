@@ -79,7 +79,7 @@ function updateTracker() {
             var φ1 = toRadians(userLat),
             φ2 = toRadians(currLat),
             Δλ = toRadians(currLng - userLng),
-            R = 6371; // gives d in metres
+            R = 6371e3; // gives d in metres
           var d = Math.acos(Math.sin(φ1) * Math.sin(φ2) + Math.cos(φ1) * Math.cos(φ2) * Math.cos(Δλ)) * R;
           $('.distance-value-m').text(d);
           $('.distance-value-mi').text(d * 0.000621);
