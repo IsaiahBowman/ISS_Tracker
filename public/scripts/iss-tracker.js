@@ -16,7 +16,7 @@ function initMap() {
             lng: 150.644
         },
         zoom: 5,
-        draggable: true
+        draggable: false
     });
     var icon = {
         url: "/images/iss-icon-map-overlay.png", // url
