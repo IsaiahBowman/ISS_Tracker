@@ -55,6 +55,10 @@ function setUserLocation() {
                 userLng = pos.lng;
                 userLocation = true;
             });
+
+            $.get(`https://ilbowman.com/iss-pass?lat=${pos.lat}&lng=${pos.lng}`, function (data) {
+                console.log(data);
+            });
         });
         console.log('Geolocation is supported!');
       }

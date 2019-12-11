@@ -20,6 +20,15 @@ app.get('/astronomy-open-notify-json', function(req, res) {
 
 });
 
+app.get('/iss-pass', function(req, res) {
+
+  request(`http://api.open-notify.org/iss-pass.json?lat=${req.query.lat}&lon=${req.query.lng}&callback=CALLBACK`, function (error, response, body) {
+    res.setHeader('Content-Type', 'application/json');
+    res.end(body);
+  });
+
+});
+
 
 module.exports = app;
 
