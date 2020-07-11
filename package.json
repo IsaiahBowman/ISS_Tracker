@@ -1,5 +1,5 @@
 {
-  "name": "ISS_Tracker",
+  "name": "iss_tracker",
   "version": "0.0.1",
   "description": "Project for tracking ISS data",
   "main": "app.js",
@@ -11,5 +11,13 @@
   "dependencies": {
     "express": "^4.17.1",
     "request": "^2.88.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IsaiahBowman/ISS-tracker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/IsaiahBowman/ISS-tracker/issues"
+  },
+  "homepage": "https://github.com/IsaiahBowman/ISS-tracker#readme"
 }
