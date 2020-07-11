@@ -7,9 +7,9 @@ var request = require('request');
 
 app.use(express.static(publicDir))
 
-app.get('/astronomy', function(req, res) {
-  res.sendFile(publicDir + '/astronomy.html');
-});
+// app.get('/astronomy', function(req, res) {
+//   res.sendFile(publicDir + '/astronomy.html');
+// });
 
 app.get('/astronomy-open-notify-json', function(req, res) {
 
